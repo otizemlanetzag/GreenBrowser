@@ -192,7 +192,8 @@ class GreenBrowser(QMainWindow):
             self.url_input.clear()
             return
 
-        clean_host = raw_input.replace("https://", "").replace("http://", "").split("/")
+        clean_host = raw_input.replace("https://", "").replace("http://", "").split("/")[0]
+
 
         if clean_host.endswith(".trust"):
             if clean_host in TRUST_REGISTRY:
