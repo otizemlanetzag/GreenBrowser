@@ -179,8 +179,8 @@
     <div class="logo">🌿 Green Browser</div>
     <div class="subtitle">Eco-Friendly Browsing • Battery Guard Active • AGPL-3.0</div>
 
-    <!-- Ecosia Search Form with /?q= -->
-    <form class="search-box" action="https://ecosia.org/search/" method="GET">
+    <!-- Ecosia Search Form with /search/?q= -->
+    <form class="search-box" action="https://ecosia.org" method="GET">
         <input type="text" name="q" placeholder="Search with Ecosia to plant trees..." autofocus required>
         <button type="submit">Search 🌱</button>
     </form>
@@ -221,14 +221,12 @@
         function formatUrl(raw) {
             let url = raw.trim();
             if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                // Use http:// for internal .trust domains so the browser interceptor catches it cleanly
                 url = url.endsWith(".trust") ? "http://" + url : "https://" + url;
             }
             return url;
         }
 
         function renderShortcuts() {
-            // Remove existing cards while keeping the "+ Add Shortcut" button
             document.querySelectorAll(".shortcut-card").forEach(el => el.remove());
 
             const shortcuts = loadShortcuts();
@@ -293,7 +291,6 @@
             renderShortcuts();
         };
 
-        // Initial render
         renderShortcuts();
     </script>
 
