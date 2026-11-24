@@ -1,16 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Tab • Green Browser</title>
+
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
         body {
-            background-color: #080f0a; /* Deep forest black for OLED battery saving */
+            background-color: #080f0a;
             color: #d8f3dc;
             font-family: "Segoe UI", "Ubuntu", sans-serif;
             display: flex;
@@ -20,17 +24,21 @@
             min-height: 100vh;
             padding: 20px;
         }
+
         .logo {
             font-size: 2.4rem;
             font-weight: bold;
             color: #52b788;
             margin-bottom: 8px;
         }
+
         .subtitle {
             color: #95d5b2;
             font-size: 0.95rem;
             margin-bottom: 32px;
+            text-align: center;
         }
+
         .search-box {
             width: 100%;
             max-width: 580px;
@@ -41,11 +49,14 @@
             padding: 6px 14px;
             margin-bottom: 32px;
         }
+
         .search-box:focus-within {
             border-color: #52b788;
         }
+
         .search-box input {
             flex: 1;
+            min-width: 0;
             background: transparent;
             border: none;
             color: #e8f5e9;
@@ -53,6 +64,7 @@
             padding: 10px 14px;
             outline: none;
         }
+
         .search-box button {
             background-color: #2d6a4f;
             color: #ffffff;
@@ -62,11 +74,13 @@
             font-weight: bold;
             cursor: pointer;
         }
+
         .search-box button:hover {
             background-color: #40916c;
         }
 
         /* Shortcuts Area */
+
         .shortcuts-container {
             display: flex;
             gap: 14px;
@@ -75,6 +89,7 @@
             max-width: 650px;
             margin-bottom: 40px;
         }
+
         .shortcut-card {
             position: relative;
             background-color: #132418;
@@ -90,16 +105,19 @@
             min-width: 110px;
             transition: background 0.2s, border-color 0.2s;
         }
+
         .shortcut-card:hover {
             background-color: #1b4332;
             border-color: #52b788;
         }
+
         .trust-tag {
             color: #52b788;
             font-size: 0.72rem;
             font-weight: bold;
             margin-bottom: 4px;
         }
+
         .remove-btn {
             position: absolute;
             top: 4px;
@@ -111,12 +129,15 @@
             cursor: pointer;
             display: none;
         }
+
         .shortcut-card:hover .remove-btn {
             display: block;
         }
+
         .remove-btn:hover {
             color: #ff6b6b;
         }
+
         .add-shortcut-btn {
             background-color: #0b140e;
             border: 1px dashed #2d6a4f;
@@ -127,22 +148,26 @@
             cursor: pointer;
             min-width: 130px;
         }
+
         .add-shortcut-btn:hover {
             background-color: #132418;
             border-color: #52b788;
             color: #ffffff;
         }
 
-        /* Inline Add Form (Hidden by default) */
+        /* Add Shortcut Form */
+
         .add-form {
             display: none;
             gap: 8px;
+            flex-wrap: wrap;
             background-color: #132418;
             border: 1px solid #2d6a4f;
             padding: 12px;
             border-radius: 12px;
             margin-bottom: 30px;
         }
+
         .add-form input {
             background-color: #080f0a;
             border: 1px solid #2d6a4f;
@@ -151,6 +176,7 @@
             border-radius: 6px;
             outline: none;
         }
+
         .add-form button {
             background-color: #2d6a4f;
             color: white;
@@ -159,6 +185,7 @@
             border-radius: 6px;
             cursor: pointer;
         }
+
         .add-form button.cancel {
             background-color: #3d1c1c;
         }
@@ -172,126 +199,287 @@
             color: #95d5b2;
             font-size: 0.85rem;
         }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .search-box {
+                padding: 5px;
+            }
+
+            .search-box button {
+                padding: 10px 14px;
+            }
+
+            .add-form {
+                flex-direction: column;
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .add-form input {
+                width: 100%;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="logo">🌿 Green Browser</div>
-    <div class="subtitle">Eco-Friendly Browsing • Battery Guard Active • AGPL-3.0</div>
 
-    <!-- Ecosia Search Form with /search?q= -->
-    <form class="search-box" action="https://www.ecosia.org/search?method=index&" method="GET">
-        <input type="text" name="?q=" placeholder="Search with Ecosia to plant trees..." autofocus required>
-        <button type="submit">Search 🌱</button>
+    <div class="subtitle">
+        Eco-Friendly Browsing • Battery Guard Active • AGPL-3.0
+    </div>
+
+    <!-- Ecosia Search Form -->
+
+    <form
+        class="search-box"
+        action="https://www.ecosia.org/search/"
+        method="GET"
+    >
+        <input
+            type="text"
+            name="q"
+            placeholder="Search with Ecosia to plant trees..."
+            autofocus
+            required
+        >
+
+        <button type="submit">
+            Search 🌱
+        </button>
     </form>
 
-    <!-- Dynamic Shortcuts Grid (Starts empty with only the Add button) -->
+    <!-- Dynamic Shortcuts Grid -->
+
     <div class="shortcuts-container" id="shortcutsGrid">
-        <button class="add-shortcut-btn" id="openAddBtn">+ Add Shortcut</button>
+
+        <button
+            class="add-shortcut-btn"
+            id="openAddBtn"
+            type="button"
+        >
+            + Add Shortcut
+        </button>
+
     </div>
 
     <!-- Add Shortcut Form -->
+
     <div class="add-form" id="addForm">
-        <input type="text" id="scName" placeholder="Name (e.g. My Tool)" required>
-        <input type="text" id="scUrl" placeholder="URL (e.g. mytool.trust or https://...)" required>
-        <button type="button" id="saveScBtn">Save</button>
-        <button type="button" class="cancel" id="cancelScBtn">Cancel</button>
+
+        <input
+            type="text"
+            id="scName"
+            placeholder="Name (e.g. My Tool)"
+            required
+        >
+
+        <input
+            type="text"
+            id="scUrl"
+            placeholder="URL (e.g. mytool.trust or https://...)"
+            required
+        >
+
+        <button type="button" id="saveScBtn">
+            Save
+        </button>
+
+        <button
+            type="button"
+            class="cancel"
+            id="cancelScBtn"
+        >
+            Cancel
+        </button>
+
     </div>
 
+    <!-- Eco Statistics -->
+
     <div class="eco-stats">
-        🔋 <b>Battery Guard:</b> Tabs exceeding your energy threshold are automatically frozen.
+        🔋 <b>Battery Guard:</b>
+        Tabs exceeding your energy threshold are automatically frozen.
     </div>
 
     <script>
+
         const STORAGE_KEY = "green_browser_shortcuts";
+
         const grid = document.getElementById("shortcutsGrid");
         const openAddBtn = document.getElementById("openAddBtn");
         const addForm = document.getElementById("addForm");
+
         const scNameInput = document.getElementById("scName");
         const scUrlInput = document.getElementById("scUrl");
 
+        // Load shortcuts from localStorage
+
         function loadShortcuts() {
-            return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+            try {
+                return JSON.parse(
+                    localStorage.getItem(STORAGE_KEY) || "[]"
+                );
+            } catch (error) {
+                return [];
+            }
         }
+
+        // Save shortcuts
 
         function saveShortcuts(list) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(list)
+            );
         }
 
+        // Format URL
+
         function formatUrl(raw) {
+
             let url = raw.trim();
-            if (!url.startsWith("http://") && !url.startsWith("https://")) {
-                url = url.endsWith(".trust") ? "http://" + url : "https://" + url;
+
+            if (
+                !url.startsWith("http://") &&
+                !url.startsWith("https://")
+            ) {
+
+                url = url.endsWith(".trust")
+                    ? "http://" + url
+                    : "https://" + url;
+
             }
+
             return url;
         }
 
+        // Render shortcuts
+
         function renderShortcuts() {
-            document.querySelectorAll(".shortcut-card").forEach(el => el.remove());
+
+            document
+                .querySelectorAll(".shortcut-card")
+                .forEach(el => el.remove());
 
             const shortcuts = loadShortcuts();
+
             shortcuts.forEach((item, index) => {
+
                 const card = document.createElement("a");
+
                 card.className = "shortcut-card";
                 card.href = item.url;
 
-                const isTrust = item.url.replace(/^https?:\/\//, "").split("/")[0].endsWith(".trust");
+                const isTrust = item.url
+                    .replace(/^https?:\/\//, "")
+                    .split("/")[0]
+                    .endsWith(".trust");
+
                 if (isTrust) {
+
                     const badge = document.createElement("span");
+
                     badge.className = "trust-tag";
                     badge.textContent = "🛡️ .TRUST";
+
                     card.appendChild(badge);
+
                 }
 
                 const label = document.createElement("span");
+
                 label.textContent = item.name;
+
                 card.appendChild(label);
 
                 const removeBtn = document.createElement("button");
+
                 removeBtn.className = "remove-btn";
                 removeBtn.textContent = "×";
                 removeBtn.title = "Remove shortcut";
+                removeBtn.type = "button";
+
                 removeBtn.onclick = (e) => {
+
                     e.preventDefault();
                     e.stopPropagation();
+
                     const updated = loadShortcuts();
+
                     updated.splice(index, 1);
+
                     saveShortcuts(updated);
+
                     renderShortcuts();
+
                 };
+
                 card.appendChild(removeBtn);
 
                 grid.insertBefore(card, openAddBtn);
+
             });
+
         }
 
+        // Open Add Form
+
         openAddBtn.onclick = () => {
+
             addForm.style.display = "flex";
+
             scNameInput.focus();
+
         };
+
+        // Cancel Add Form
 
         document.getElementById("cancelScBtn").onclick = () => {
+
             addForm.style.display = "none";
+
             scNameInput.value = "";
             scUrlInput.value = "";
+
         };
 
+        // Save Shortcut
+
         document.getElementById("saveScBtn").onclick = () => {
+
             const name = scNameInput.value.trim();
             const rawUrl = scUrlInput.value.trim();
+
             if (!name || !rawUrl) return;
 
             const shortcuts = loadShortcuts();
-            shortcuts.push({ name: name, url: formatUrl(rawUrl) });
+
+            shortcuts.push({
+                name: name,
+                url: formatUrl(rawUrl)
+            });
+
             saveShortcuts(shortcuts);
 
             scNameInput.value = "";
             scUrlInput.value = "";
+
             addForm.style.display = "none";
+
             renderShortcuts();
+
         };
 
+        // Initial Render
+
         renderShortcuts();
+
     </script>
 
 </body>
