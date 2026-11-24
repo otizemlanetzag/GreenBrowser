@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>newtab • Green Browser</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #080f0a; /* שחור-יער לחיסכון מקסימלי מסכי OLED */
+            color: #d8f3dc;
+            font-family: "Segoe UI", "Ubuntu", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .logo {
+            font-size: 2.4rem;
+            font-weight: bold;
+            color: #52b788;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #95d5b2;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+        .search-box {
+            width: 100%;
+            max-width: 580px;
+            display: flex;
+            background-color: #132418;
+            border: 1px solid #2d6a4f;
+            border-radius: 28px;
+            padding: 6px 14px;
+            margin-bottom: 36px;
+        }
+        .search-box:focus-within {
+            border-color: #52b788;
+        }
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #e8f5e9;
+            font-size: 1.05rem;
+            padding: 10px;
+            outline: none;
+        }
+        .search-box button {
+            background-color: #2d6a4f;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .search-box button:hover {
+            background-color: #40916c;
+        }
+        .trust-links {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+        .trust-card {
+            background-color: #132418;
+            border: 1px solid #1b4332;
+            border-radius: 10px;
+            padding: 12px 18px;
+            text-decoration: none;
+            color: #d8f3dc;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .trust-card:hover {
+            background-color: #1b4332;
+            border-color: #52b788;
+        }
+        .trust-badge {
+            color: #52b788;
+            font-weight: bold;
+            font-size: 0.75rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .eco-stats {
+            background-color: #0b140e;
+            border: 1px dashed #2d6a4f;
+            border-radius: 12px;
+            padding: 14px 24px;
+            text-align: center;
+            color: #95d5b2;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">🌿 Green Browser</div>
+    <div class="subtitle">גלישה ירוקה • חוסכת סוללה • קוד פתוח (AGPL-3.0)</div>
+
+    <!-- טופס חיפוש ישיר -Ecosia -->
+    <form class="search-box" action="https://ecosia.org" method="GET">
+        <input type="text" name="q" placeholder="search ecosia and plant trees" autofocus required>
+        <button type="submit">חפש 🌱</button>
+    </form>
+
+    
+    <div class="eco-stats">
+        🔋 <b>battery saver on
+    </div>
+
+</body>
+</html>
